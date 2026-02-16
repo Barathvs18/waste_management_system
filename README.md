@@ -1,143 +1,137 @@
-# Digital Waste Collection Management System
+# 🗑️ Digital Waste Collection Management System
 
 A full-stack web application for managing waste collection operations with separate dashboards for public users, cleaners/drivers, and administrators.
 
+![Node.js](https://img.shields.io/badge/Node.js-18+-green)
+![MongoDB](https://img.shields.io/badge/MongoDB-7.0-green)
+![Docker](https://img.shields.io/badge/Docker-Ready-blue)
+![License](https://img.shields.io/badge/License-MIT-blue)
+
+## 🌟 Features
+
+### 👥 For Public Users
+- ✅ Register waste collection complaints with quick action buttons
+- ✅ View complaint status in real-time
+- ✅ See assigned cleaner details (name, phone)
+- ✅ Direct call button to contact cleaners
+- ✅ View complaint history
+
+### 🚛 For Cleaners/Drivers
+- ✅ View assigned areas and routes
+- ✅ See complaints in their route
+- ✅ Update waste collection status (✅ Waste Collected / ❌ Not Collected)
+- ✅ Update live status (Idle/On the Way/Arrived/Completed)
+- ✅ Manage daily route list
+
+### 🛠️ For Admins
+- ✅ Assign cleaners to areas
+- ✅ Create and post routes for cleaners
+- ✅ View all complaints
+- ✅ Monitor cleaner status
+- ✅ View analytics dashboard (Total, Collected, Pending, Not Collected)
+- ✅ Manage users and cleaners
+
 ## 🚀 Tech Stack
 
-- **Frontend**: HTML, CSS, Vanilla JavaScript
-- **Backend**: Node.js with Express
-- **Database**: MongoDB (Mongoose)
+- **Frontend**: HTML5, CSS3, Vanilla JavaScript
+- **Backend**: Node.js, Express.js
+- **Database**: MongoDB (Mongoose ODM)
 - **Authentication**: JWT with bcrypt password hashing
-
-## 👥 User Roles
-
-### 1. Public User
-- Register waste collection complaints
-- View complaint status in real-time
-- See assigned cleaner details
-- Contact cleaners directly via phone
-- View complaint history
-
-### 2. Cleaner/Driver
-- View assigned areas and routes
-- See complaints in their route
-- Update waste collection status (Collected/Not Collected)
-- Update live status (Idle/On the Way/Arrived/Completed)
-- Manage daily route list
-
-### 3. Admin
-- Assign cleaners to areas
-- Create and post routes for cleaners
-- View all complaints
-- Monitor cleaner status
-- View analytics dashboard
-- Manage users and cleaners
+- **Deployment**: Docker & Docker Compose ready
 
 ## 📁 Project Structure
 
 ```
 digital_waste_management/
-├── models/
+├── models/              # MongoDB schemas
 │   ├── User.js
 │   ├── Cleaner.js
 │   ├── Complaint.js
 │   └── Route.js
-├── controllers/
+├── controllers/         # Business logic
 │   ├── authController.js
 │   ├── complaintController.js
 │   ├── cleanerController.js
 │   └── routeController.js
-├── routes/
+├── routes/             # API routes
 │   ├── authRoutes.js
 │   ├── complaintRoutes.js
 │   ├── cleanerRoutes.js
 │   └── routeRoutes.js
-├── middleware/
+├── middleware/         # Authentication middleware
 │   └── auth.js
-├── public/
+├── public/            # Frontend files
 │   ├── css/
-│   │   └── style.css
 │   ├── js/
-│   │   ├── register.js
-│   │   ├── login.js
-│   │   ├── user-dashboard.js
-│   │   ├── cleaner-dashboard.js
-│   │   └── admin-dashboard.js
-│   ├── index.html
-│   ├── register.html
-│   ├── login.html
-│   ├── user-dashboard.html
-│   ├── cleaner-dashboard.html
-│   └── admin-dashboard.html
-├── .env
-├── server.js
-├── package.json
-└── README.md
+│   └── *.html
+├── Dockerfile
+├── docker-compose.yml
+└── server.js          # Main server file
 ```
 
 ## 🛠️ Installation & Setup
 
-### Prerequisites
+### Option 1: Using Docker (Recommended)
 
-- Node.js (v14 or higher)
-- MongoDB (local installation or MongoDB Atlas account)
-- npm or yarn package manager
+1. **Install Docker Desktop**
+   - Download from: https://www.docker.com/products/docker-desktop/
 
-### Step 1: Install MongoDB
+2. **Clone the repository**
+   ```bash
+   git clone https://github.com/Barathvs18/waste_management_system.git
+   cd waste_management_system
+   ```
 
-#### Windows:
-1. Download MongoDB Community Server from https://www.mongodb.com/try/download/community
-2. Run the installer and follow the installation wizard
-3. MongoDB will run as a Windows service automatically
+3. **Run with Docker Compose**
+   ```bash
+   docker-compose up -d
+   ```
 
-#### Alternative: Use MongoDB Atlas (Cloud)
-1. Sign up at https://www.mongodb.com/cloud/atlas
-2. Create a free cluster
-3. Get your connection string and update it in `.env` file
+4. **Access the application**
+   ```
+   http://localhost:3000
+   ```
 
-### Step 2: Install Dependencies
+### Option 2: Manual Installation
 
-Open PowerShell in the project directory and run:
+1. **Prerequisites**
+   - Node.js (v14+)
+   - MongoDB (local or MongoDB Atlas)
 
-```powershell
-npm install
-```
+2. **Clone the repository**
+   ```bash
+   git clone https://github.com/Barathvs18/waste_management_system.git
+   cd waste_management_system
+   ```
 
-### Step 3: Configure Environment Variables
+3. **Install dependencies**
+   ```bash
+   npm install
+   ```
 
-The `.env` file is already created with default values. Update if needed:
+4. **Configure environment variables**
+   
+   Create a `.env` file in the root directory:
+   ```env
+   PORT=3000
+   MONGODB_URI=mongodb://localhost:27017/waste_management
+   JWT_SECRET=your_super_secret_jwt_key
+   JWT_EXPIRE=7d
+   ADMIN_EMAIL=admin@waste.com
+   ADMIN_PASSWORD=admin123
+   ```
 
-```env
-PORT=5000
-MONGODB_URI=mongodb://localhost:27017/waste_management
-JWT_SECRET=your_super_secret_jwt_key_change_this_in_production
-JWT_EXPIRE=7d
+5. **Start MongoDB** (if using local installation)
 
-# Admin Credentials
-ADMIN_EMAIL=admin@waste.com
-ADMIN_PASSWORD=admin123
-```
+6. **Run the application**
+   ```bash
+   npm start
+   ```
 
-### Step 4: Start MongoDB
-
-If using local MongoDB:
-
-```powershell
-# MongoDB should already be running as a service on Windows
-# To verify, open Services (services.msc) and check for "MongoDB Server"
-```
-
-### Step 5: Run the Application
-
-```powershell
-# Development mode with auto-restart
-npm run dev
-
-# OR Production mode
-npm start
-```
-
-The application will be available at: **http://localhost:5000**
+7. **Access the application**
+   ```
+   http://localhost:3000
+   ```
 
 ## 🔐 Default Credentials
 
@@ -145,52 +139,56 @@ The application will be available at: **http://localhost:5000**
 - **Email**: admin@waste.com
 - **Password**: admin123
 
-### Test Users
-You need to register new users and cleaners through the registration pages.
+> ⚠️ **Important**: Change default admin credentials in production!
 
-## 📋 Usage Guide
+## 📖 API Documentation
 
-### For Public Users
+### Authentication Endpoints
+- `POST /api/auth/register` - Register new user
+- `POST /api/auth/register-cleaner` - Register new cleaner
+- `POST /api/auth/login` - Login user/cleaner
+- `POST /api/auth/admin-login` - Admin login
 
-1. **Register**: Go to `/register` and fill in your details
-   - Name, Email, Password, Area, Phone Number
+### Complaint Endpoints
+- `POST /api/complaints` - Create complaint (User)
+- `GET /api/complaints/my-complaints` - Get user's complaints (User)
+- `GET /api/complaints/cleaner-complaints` - Get cleaner's complaints (Cleaner)
+- `GET /api/complaints` - Get all complaints (Admin)
+- `PUT /api/complaints/:id/assign` - Assign complaint to cleaner (Admin)
+- `PUT /api/complaints/:id/status` - Update complaint status (Cleaner)
+- `GET /api/complaints/analytics` - Get analytics (Admin)
 
-2. **Login**: Use your credentials at `/login` (select "User" role)
+### Cleaner Endpoints
+- `GET /api/cleaners/profile` - Get cleaner profile (Cleaner)
+- `PUT /api/cleaners/status` - Update cleaner status (Cleaner)
+- `GET /api/cleaners` - Get all cleaners (Admin)
+- `PUT /api/cleaners/:id/area` - Update cleaner area (Admin)
 
-3. **Dashboard Features**:
-   - Submit new complaints about uncollected waste
-   - View all your complaints with status
-   - See assigned cleaner name and phone
-   - Call cleaner directly from the dashboard
-   - Track complaint history
+### Route Endpoints
+- `GET /api/routes/my-routes` - Get cleaner's routes (Cleaner)
+- `PUT /api/routes/:id/status` - Update route status (Cleaner)
+- `POST /api/routes` - Create route (Admin)
+- `GET /api/routes` - Get all routes (Admin)
 
-### For Cleaners
+## 🎨 UI Features
 
-1. **Register**: Go to `/register` and switch to "Cleaner" tab
-   - Name, Email, Password, Phone, Vehicle Number, Assigned Area
+- ✅ Modern dark theme with gradients
+- ✅ Responsive design (mobile & desktop)
+- ✅ Status badges with color coding
+- ✅ Real-time data refresh
+- ✅ Loading spinners
+- ✅ Toast notifications
+- ✅ Clean card-based layout
 
-2. **Login**: Use your credentials at `/login` (select "Cleaner" role)
+## 🔒 Security Features
 
-3. **Dashboard Features**:
-   - Update your live status (Idle, On the Way, Arrived, Completed)
-   - View complaints in your assigned area
-   - Mark complaints as Collected or Not Collected
-   - View your daily routes assigned by admin
-   - Update route status (Start Route, Complete)
+- ✅ Password hashing with bcrypt
+- ✅ JWT-based authentication
+- ✅ Protected API routes with middleware
+- ✅ Role-based access control
+- ✅ Environment variables for sensitive data
 
-### For Admin
-
-1. **Login**: Use admin credentials at `/login` (select "Admin" role)
-
-2. **Dashboard Features**:
-   - View analytics (Total, Collected, Pending, Not Collected)
-   - Create new routes for cleaners
-   - View all complaints from all areas
-   - Assign complaints to specific cleaners
-   - Monitor all cleaners and their status
-   - View all scheduled routes
-
-## 🗄️ Database Schemas
+## 📊 Database Schemas
 
 ### User Schema
 - name, email, password (hashed), area, phone, role
@@ -204,158 +202,62 @@ You need to register new users and cleaners through the registration pages.
 ### Route Schema
 - cleanerId, cleanerName, area, date, startTime, endTime, description, status
 
-## 🔒 Security Features
-
-- ✅ Password hashing with bcrypt
-- ✅ JWT-based authentication
-- ✅ Protected API routes with middleware
-- ✅ Role-based access control
-- ✅ Token expiration (7 days)
-- ✅ Environment variables for sensitive data
-
-## 🎨 UI Features
-
-- ✅ Modern dark theme with gradients
-- ✅ Responsive design for mobile and desktop
-- ✅ Status badges (Collected, Pending, etc.)
-- ✅ Real-time data refresh
-- ✅ Loading spinners
-- ✅ Alert notifications
-- ✅ Clean card-based layout
-- ✅ Smooth animations and transitions
-
-## 📊 API Endpoints
-
-### Authentication
-- `POST /api/auth/register` - Register new user
-- `POST /api/auth/register-cleaner` - Register new cleaner
-- `POST /api/auth/login` - Login user/cleaner
-- `POST /api/auth/admin-login` - Admin login
-
-### Complaints
-- `POST /api/complaints` - Create complaint (User)
-- `GET /api/complaints/my-complaints` - Get user's complaints (User)
-- `GET /api/complaints/cleaner-complaints` - Get cleaner's complaints (Cleaner)
-- `GET /api/complaints` - Get all complaints (Admin)
-- `PUT /api/complaints/:id/assign` - Assign complaint (Admin)
-- `PUT /api/complaints/:id/status` - Update status (Cleaner)
-- `GET /api/complaints/analytics` - Get analytics (Admin)
-
-### Cleaners
-- `GET /api/cleaners/profile` - Get cleaner profile (Cleaner)
-- `PUT /api/cleaners/status` - Update status (Cleaner)
-- `GET /api/cleaners` - Get all cleaners (Admin)
-- `PUT /api/cleaners/:id/area` - Update cleaner area (Admin)
-- `DELETE /api/cleaners/:id` - Delete cleaner (Admin)
-
-### Routes
-- `GET /api/routes/my-routes` - Get cleaner's routes (Cleaner)
-- `PUT /api/routes/:id/status` - Update route status (Cleaner)
-- `POST /api/routes` - Create route (Admin)
-- `GET /api/routes` - Get all routes (Admin)
-- `DELETE /api/routes/:id` - Delete route (Admin)
-
-## 🐛 Troubleshooting
-
-### MongoDB Connection Issues
-
-**Error**: "MongoNetworkError: failed to connect to server"
-
-**Solution**:
-1. Ensure MongoDB is running:
-   ```powershell
-   # Check if MongoDB service is running
-   Get-Service -Name MongoDB
-   
-   # If not running, start it
-   Start-Service -Name MongoDB
-   ```
-
-2. Or use MongoDB Atlas connection string in `.env`
-
-### Port Already in Use
-
-**Error**: "EADDRINUSE: address already in use :::5000"
-
-**Solution**:
-```powershell
-# Find process using port 5000
-netstat -ano | findstr :5000
-
-# Kill the process (replace PID with actual process ID)
-taskkill /PID <PID> /F
-```
-
-### Cannot Register/Login
-
-**Solution**:
-- Check MongoDB is running
-- Verify `.env` file exists with correct values
-- Check browser console for errors
-- Ensure all npm packages are installed
-
 ## 🚀 Deployment
 
-### Deploy to Production
+### Deploy with Docker
 
-1. Update `.env` with production values:
-   ```env
-   MONGODB_URI=your_production_mongodb_uri
-   JWT_SECRET=generate_strong_secret_key
-   ```
+```bash
+# Build and run
+docker-compose up -d
 
-2. Use services like:
-   - **Heroku** (Backend + Frontend)
-   - **Vercel** (Frontend) + **Heroku/Railway** (Backend)
-   - **DigitalOcean** (Full stack)
+# View logs
+docker-compose logs -f
 
-3. Set environment variables in your hosting platform
-
-## 📝 Future Enhancements
-
-- Real-time notifications using Socket.io
-- GPS tracking for cleaners
-- Mobile application (React Native)
-- Email notifications
-- SMS alerts
-- Payment integration
-- Multi-language support
-- Analytics graphs and charts
-- Export data to CSV/PDF
-- Image upload for complaints
-
-## 👨‍💻 Development
-
-### Run in Development Mode
-
-```powershell
-npm run dev
+# Stop containers
+docker-compose down
 ```
 
-This uses nodemon for auto-restart on file changes.
+### Deploy to Cloud Platforms
 
-### Testing the Application
+- **Heroku**: Container deployment ready
+- **DigitalOcean**: App Platform compatible
+- **AWS**: ECS/Fargate ready
+- **Google Cloud**: Cloud Run compatible
 
-1. Start the server
-2. Register a cleaner account
-3. Login as admin and create a route for the cleaner
-4. Register a user account
-5. Login as user and create a complaint
-6. Login as admin and assign the complaint to the cleaner
-7. Login as cleaner and update the complaint status
+See `DOCKER_GUIDE.md` for detailed deployment instructions.
 
-## 📄 License
+## 📚 Documentation
 
-This project is open source and available for educational purposes.
+- **README.md** - This file
+- **QUICK_START.md** - Quick testing guide
+- **API_TESTING.md** - API endpoint examples
+- **DOCKER_GUIDE.md** - Docker deployment guide
+- **PROJECT_SUMMARY.md** - Complete feature overview
+- **UPDATES.md** - Recent updates and changes
 
-## 🤝 Support
+## 🤝 Contributing
 
-For issues and questions:
-- Check the troubleshooting section
-- Ensure all dependencies are installed
-- Verify MongoDB is running
-- Check browser console for errors
+Contributions are welcome! Please feel free to submit a Pull Request.
+
+## 📝 License
+
+This project is licensed under the MIT License.
+
+## 👨‍💻 Author
+
+**Barath VS**
+- GitHub: [@Barathvs18](https://github.com/Barathvs18)
+
+## 🙏 Acknowledgments
+
+- Built with ❤️ for cleaner cities
+- Modern UI design inspired by current web trends
+- Docker containerization for easy deployment
+
+## 📧 Support
+
+For issues and questions, please create an issue on GitHub.
 
 ---
 
-**Built with ❤️ for cleaner cities**
+**⭐ Star this repository if you find it helpful!**
