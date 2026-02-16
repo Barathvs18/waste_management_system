@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Cleaner Dashboard - Digital Waste Management">
+    <title>Cleaner Dashboard - WasteManage</title>
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <a href="/" class="logo">
+                <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M3 6h18M19 6v14a2 2 0 01-2 2H7a2 2 0 01-2-2V6m3 0V4a2 2 0 012-2h4a2 2 0 012 2v2" />
+                </svg>
+                WasteManage
+            </a>
+            <div class="nav-links">
+                <span id="cleanerName" style="color: var(--primary-color);"></span>
+                <button onclick="logout()">Logout</button>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container">
+        <!-- Profile Section -->
+        <section class="card mt-2">
+            <h2>Cleaner Profile</h2>
+            <div class="grid grid-3">
+                <div>
+                    <p style="color: var(--text-secondary); margin-bottom: 0.5rem;">Name</p>
+                    <p style="font-weight: 600;" id="profileName"></p>
+                </div>
+                <div>
+                    <p style="color: var(--text-secondary); margin-bottom: 0.5rem;">Vehicle</p>
+                    <p style="font-weight: 600;" id="profileVehicle"></p>
+                </div>
+                <div>
+                    <p style="color: var(--text-secondary); margin-bottom: 0.5rem;">Assigned Area</p>
+                    <p style="font-weight: 600;" id="profileArea"></p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Status Update Section -->
+        <section class="card mt-2">
+            <div class="card-header">
+                <h3 class="card-title">Update Live Status</h3>
+            </div>
+            <div class="card-body">
+                <div id="statusAlert"></div>
+                <form id="statusForm">
+                    <div class="form-group">
+                        <label class="form-label" for="status">Current Status</label>
+                        <select id="status" class="form-select">
+                            <option value="idle">Idle</option>
+                            <option value="on_the_way">On the Way</option>
+                            <option value="arrived">Arrived</option>
+                            <option value="completed">Completed</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label" for="location">Current Location (Optional)</label>
+                        <input type="text" id="location" class="form-input" placeholder="e.g., Near Main Street">
+                    </div>
+                    <button type="submit" class="btn btn-primary">Update Status</button>
+                </form>
+            </div>
+        </section>
+
+        <!-- Assigned Complaints -->
+        <section class="card mt-2">
+            <div class="card-header">
+                <h3 class="card-title">Assigned Complaints</h3>
+                <button onclick="loadComplaints()" class="btn btn-outline"
+                    style="padding: 0.5rem 1rem; font-size: 0.875rem;">
+                    Refresh
+                </button>
+            </div>
+            <div class="card-body">
+                <div id="complaintsContainer">
+                    <div class="spinner"></div>
+                </div>
+            </div>
+        </section>
+
+        <!-- My Routes -->
+        <section class="card mt-2">
+            <div class="card-header">
+                <h3 class="card-title">My Daily Routes</h3>
+                <button onclick="loadRoutes()" class="btn btn-outline"
+                    style="padding: 0.5rem 1rem; font-size: 0.875rem;">
+                    Refresh
+                </button>
+            </div>
+            <div class="card-body">
+                <div id="routesContainer">
+                    <div class="spinner"></div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <script src="/js/cleaner-dashboard.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Register for Digital Waste Management System">
+    <title>Register - WasteManage</title>
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+
+<body>
+    <div class="auth-container">
+        <div class="auth-card">
+            <div class="auth-header">
+                <h1>Create Account</h1>
+                <p style="color: var(--text-secondary);">Join our waste management system</p>
+            </div>
+
+            <!-- Role Selection -->
+            <div class="form-group">
+                <label class="form-label">Register as:</label>
+                <div style="display: flex; gap: 1rem; margin-bottom: 1.5rem;">
+                    <button type="button" class="btn btn-primary" id="userRoleBtn" onclick="switchRole('user')"
+                        style="flex: 1;">
+                        User
+                    </button>
+                    <button type="button" class="btn btn-outline" id="cleanerRoleBtn" onclick="switchRole('cleaner')"
+                        style="flex: 1;">
+                        Cleaner
+                    </button>
+                </div>
+            </div>
+
+            <div id="alertContainer"></div>
+
+            <!-- User Registration Form -->
+            <form id="userForm">
+                <div class="form-group">
+                    <label class="form-label" for="userName">Full Name</label>
+                    <input type="text" id="userName" class="form-input" required>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label" for="userEmail">Email</label>
+                    <input type="email" id="userEmail" class="form-input" required>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label" for="userPassword">Password</label>
+                    <input type="password" id="userPassword" class="form-input" minlength="6" required>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label" for="userArea">Area</label>
+                    <input type="text" id="userArea" class="form-input" placeholder="e.g., Downtown, Zone 1" required>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label" for="userPhone">Phone Number</label>
+                    <input type="tel" id="userPhone" class="form-input" placeholder="+1234567890" required>
+                </div>
+
+                <button type="submit" class="btn btn-primary" style="width: 100%;">
+                    Register
+                </button>
+            </form>
+
+            <!-- Cleaner Registration Form -->
+            <form id="cleanerForm" class="hidden">
+                <div class="form-group">
+                    <label class="form-label" for="cleanerName">Full Name</label>
+                    <input type="text" id="cleanerName" class="form-input">
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label" for="cleanerEmail">Email</label>
+                    <input type="email" id="cleanerEmail" class="form-input">
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label" for="cleanerPassword">Password</label>
+                    <input type="password" id="cleanerPassword" class="form-input" minlength="6">
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label" for="cleanerPhone">Phone Number</label>
+                    <input type="tel" id="cleanerPhone" class="form-input" placeholder="+1234567890">
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label" for="vehicleNumber">Vehicle Number</label>
+                    <input type="text" id="vehicleNumber" class="form-input" placeholder="e.g., WM-123">
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label" for="assignedArea">Assigned Area</label>
+                    <input type="text" id="assignedArea" class="form-input" placeholder="e.g., Downtown, Zone 1">
+                </div>
+
+                <button type="submit" class="btn btn-primary" style="width: 100%;">
+                    Register as Cleaner
+                </button>
+            </form>
+
+            <div class="auth-links">
+                Already have an account? <a href="/login">Login here</a>
+            </div>
+        </div>
+    </div>
+
+    <script src="/js/register.js"></script>
+</body>
+
+</html>

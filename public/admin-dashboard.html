@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Admin Dashboard - Digital Waste Management">
+    <title>Admin Dashboard - WasteManage</title>
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <a href="/" class="logo">
+                <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M3 6h18M19 6v14a2 2 0 01-2 2H7a2 2 0 01-2-2V6m3 0V4a2 2 0 012-2h4a2 2 0 012 2v2" />
+                </svg>
+                WasteManage Admin
+            </a>
+            <div class="nav-links">
+                <span style="color: var(--primary-color);">Admin Panel</span>
+                <button onclick="logout()">Logout</button>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container">
+        <!-- Analytics Section -->
+        <section class="grid grid-4 mt-2">
+            <div class="stat-card">
+                <div class="stat-number" id="totalComplaints">0</div>
+                <div class="stat-label">Total Complaints</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number" id="collectedComplaints">0</div>
+                <div class="stat-label">Collected</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number" id="pendingComplaints">0</div>
+                <div class="stat-label">Pending</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number" id="notCollectedComplaints">0</div>
+                <div class="stat-label">Not Collected</div>
+            </div>
+        </section>
+
+        <!-- Create Route Section -->
+        <section class="card mt-2">
+            <div class="card-header">
+                <h3 class="card-title">Create New Route</h3>
+            </div>
+            <div class="card-body">
+                <div id="routeAlert"></div>
+                <form id="routeForm">
+                    <div class="grid grid-2">
+                        <div class="form-group">
+                            <label class="form-label" for="routeCleaner">Select Cleaner</label>
+                            <select id="routeCleaner" class="form-select" required>
+                                <option value="">Loading cleaners...</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label" for="routeArea">Area</label>
+                            <input type="text" id="routeArea" class="form-input" required>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label" for="routeDate">Date</label>
+                            <input type="date" id="routeDate" class="form-input" required>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label" for="routeStartTime">Start Time</label>
+                            <input type="time" id="routeStartTime" class="form-input" required>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label" for="routeEndTime">End Time</label>
+                            <input type="time" id="routeEndTime" class="form-input" required>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label" for="routeDescription">Description</label>
+                            <input type="text" id="routeDescription" class="form-input" placeholder="Optional">
+                        </div>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Create Route</button>
+                </form>
+            </div>
+        </section>
+
+        <!-- All Complaints -->
+        <section class="card mt-2">
+            <div class="card-header">
+                <h3 class="card-title">All Complaints</h3>
+                <button onclick="loadComplaints()" class="btn btn-outline"
+                    style="padding: 0.5rem 1rem; font-size: 0.875rem;">
+                    Refresh
+                </button>
+            </div>
+            <div class="card-body">
+                <div id="complaintsContainer">
+                    <div class="spinner"></div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Manage Cleaners -->
+        <section class="card mt-2">
+            <div class="card-header">
+                <h3 class="card-title">Manage Cleaners</h3>
+                <button onclick="loadCleaners()" class="btn btn-outline"
+                    style="padding: 0.5rem 1rem; font-size: 0.875rem;">
+                    Refresh
+                </button>
+            </div>
+            <div class="card-body">
+                <div id="cleanersContainer">
+                    <div class="spinner"></div>
+                </div>
+            </div>
+        </section>
+
+        <!-- All Routes -->
+        <section class="card mt-2">
+            <div class="card-header">
+                <h3 class="card-title">All Routes</h3>
+                <button onclick="loadRoutes()" class="btn btn-outline"
+                    style="padding: 0.5rem 1rem; font-size: 0.875rem;">
+                    Refresh
+                </button>
+            </div>
+            <div class="card-body">
+                <div id="routesContainer">
+                    <div class="spinner"></div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!-- Assign Complaint Modal (Simple Implementation) -->
+    <div id="assignModal"
+        style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.7); z-index: 1000; align-items: center; justify-content: center;">
+        <div class="card" style="max-width: 500px; margin: 2rem;">
+            <div class="card-header">
+                <h3 class="card-title">Assign Complaint</h3>
+                <button onclick="closeAssignModal()"
+                    style="background: none; border: none; color: var(--text-primary); font-size: 1.5rem; cursor: pointer;">&times;</button>
+            </div>
+            <div class="card-body">
+                <div id="assignAlert"></div>
+                <form id="assignForm">
+                    <div class="form-group">
+                        <label class="form-label" for="assignCleaner">Select Cleaner</label>
+                        <select id="assignCleaner" class="form-select" required>
+                            <option value="">Choose a cleaner...</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label" for="expectedArrival">Expected Arrival</label>
+                        <input type="text" id="expectedArrival" class="form-input" value="Within 2 hours" required>
+                    </div>
+                    <button type="submit" class="btn btn-primary" style="width: 100%;">Assign</button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <script src="/js/admin-dashboard.js"></script>
+</body>
+
+</html>
